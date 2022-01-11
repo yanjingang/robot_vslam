@@ -19,10 +19,10 @@
   <!-- By default, calibrations are stored to file://${ROS_HOME}/camera_info/${NAME}.yaml,
        where ${NAME} is of the form "[rgb|depth]_[serial#]", e.g. "depth_B00367707227042B".
        See camera_info_manager docs for calibration URL details. -->
-  <!--arg name="rgb_camera_info_url"   default="file://$(find robot_vslam)/config/astrapro/camera_640.yaml" />
-  <arg name="depth_camera_info_url" default="file://$(find robot_vslam)/config/astrapro/depth_640.yaml" /-->
-  <arg name="rgb_camera_info_url"   default="file://$(find robot_vslam)/config/astrapro/camera_320.yaml" />
-  <arg name="depth_camera_info_url" default="file://$(find robot_vslam)/config/astrapro/depth_320.yaml" />
+  <arg name="rgb_camera_info_url"   default="file://$(find robot_vslam)/config/astrapro/camera_640.yaml" />
+  <arg name="depth_camera_info_url" default="file://$(find robot_vslam)/config/astrapro/depth_640.yaml" />
+  <!--arg name="rgb_camera_info_url"   default="file://$(find robot_vslam)/config/astrapro/camera_320.yaml" />
+  <arg name="depth_camera_info_url" default="file://$(find robot_vslam)/config/astrapro/depth_320.yaml" /-->
   
   <!-- Hardware depth registration -->
   <arg name="depth_registration" default="true" />
@@ -77,10 +77,10 @@
       <param name="index" value="$(arg index)"/>
 
       <!-- Image size and type -->
-      <param name="width" value="320"/>
-      <param name="height" value="240"/>
-      <!--param name="width" value="640"/>
-      <param name="height" value="480"/-->
+      <!--param name="width" value="320"/>
+      <param name="height" value="240"/-->
+      <param name="width" value="640"/>
+      <param name="height" value="480"/>
       <!-- choose whichever uncompressed format the camera supports: -->
       <param name="video_mode" value="mjpeg"/> <!-- or yuyv/nv12/mjpeg -->
       <param name="frame_rate" value="30"/>
