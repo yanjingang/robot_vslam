@@ -43,9 +43,9 @@
     <param name="auto_exposure" value="$(arg auto_exposure)" />
     <param name="auto_white_balance" value="$(arg auto_white_balance)" />
 
-    <param name="ir_mode"                         value="8" />
+    <!--param name="ir_mode"                         value="8" />
     <param name="color_mode"                      value="8" />
-    <param name="depth_mode"                      value="8" />
+    <param name="depth_mode"                      value="8" /-->
 
     <remap from="ir" to="$(arg ir)" />
     <remap from="rgb" to="$(arg rgb)" />
