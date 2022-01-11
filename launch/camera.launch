@@ -10,8 +10,9 @@
 
     <group if="$(eval camera_type == 'astrapro')">
         <group if="$(eval base_type == 'MarsRobot')">
+            <!-- 深度相机相比与底盘中心，靠前7.5cm，高14cm -->
             <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_camera"
-                args="0.0015 0.0 0.140 0.0 0.0 0.0 $(arg base_frame) $(arg camera_frame) 20">
+                args="0.075 0.0 0.14 0.0 0.0 0.0 $(arg base_frame) $(arg camera_frame) 20">
             </node>
         </group>
         <group if="$(eval base_type == '4WD')">
