@@ -19,6 +19,8 @@
   <!-- By default, calibrations are stored to file://${ROS_HOME}/camera_info/${NAME}.yaml,
        where ${NAME} is of the form "[rgb|depth]_[serial#]", e.g. "depth_B00367707227042B".
        See camera_info_manager docs for calibration URL details. -->
+  <!--arg name="rgb_camera_info_url"   default="file://$(find robot_vslam)/config/astrapro/camera_640.yaml" />
+  <arg name="depth_camera_info_url" default="file://$(find robot_vslam)/config/astrapro/depth_640.yaml" /-->
   <arg name="rgb_camera_info_url"   default="file://$(find robot_vslam)/config/astrapro/camera_320.yaml" />
   <arg name="depth_camera_info_url" default="file://$(find robot_vslam)/config/astrapro/depth_320.yaml" />
   
@@ -46,15 +48,19 @@
   <arg name="ir_processing"                   default="false" />
   <arg name="depth_processing"                default="true" />
   <arg name="depth_registered_processing"     default="false" />
+  <!--arg name="depth_registered_processing"     default="true" /-->
   <arg name="disparity_processing"            default="false" />
   <arg name="disparity_registered_processing" default="false" />
   <arg name="hw_registered_processing"        default="false" if="$(arg depth_registration)" />
+  <!--arg name="hw_registered_processing"        default="true" if="$(arg depth_registration)" /-->
   <arg name="sw_registered_processing"        default="false" if="$(arg depth_registration)" />
   <arg name="hw_registered_processing"        default="false" unless="$(arg depth_registration)" />
   <arg name="sw_registered_processing"        default="false" unless="$(arg depth_registration)" />
+  <!--arg name="sw_registered_processing"        default="true" unless="$(arg depth_registration)" /-->
 
   <!-- Disable bond topics by default -->
-  <arg name="respawn" default="true" />
+  <!--arg name="respawn" default="true" /-->
+  <arg name="respawn" default="false" />
 
   <!-- Worker threads for the nodelet manager -->
   <arg name="num_worker_threads" default="4" />
@@ -73,6 +79,8 @@
       <!-- Image size and type -->
       <param name="width" value="320"/>
       <param name="height" value="240"/>
+      <!--param name="width" value="640"/>
+      <param name="height" value="480"/-->
       <!-- choose whichever uncompressed format the camera supports: -->
       <param name="video_mode" value="yuyv"/> <!-- or yuyv/nv12/jpeg -->
       <param name="frame_rate" value="30"/>
@@ -90,6 +98,7 @@
       <!-- <param name="auto_white_balance" value="false"/> -->
       <remap from="/$(arg camera)/image_raw" to="/$(arg camera)/rgb/image_raw" />
     </node>
+
 	  <!-- Start nodelet manager -->
 	  <arg name="manager" value="$(arg camera)_nodelet_manager" />
 	  <arg name="debug" default="false" /> <!-- Run manager in GDB? -->
@@ -141,7 +150,7 @@
   </group> <!-- camera -->
   <!-- Load reasonable defaults for the relative pose between cameras -->
   <include if="$(arg publish_tf)"
-	   file="$(find astrapro_launch)/launch/includes/astra_frames.launch.xml">
+	   file="$(find robot_vslam)/launch/camera/includes/astra_frames.launch.xml">
     <arg name="camera" value="$(arg camera)" />
   </include>
   
