@@ -9,6 +9,11 @@
     <include file="$(find robot_vslam)/launch/camera/$(arg camera_type).launch"/>
 
     <group if="$(eval camera_type == 'astrapro')">
+        <group if="$(eval base_type == 'MarsRobot')">
+            <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_camera"
+                args="0.0015 0.0 0.140 0.0 0.0 0.0 $(arg base_frame) $(arg camera_frame) 20">
+            </node>
+        </group>
         <group if="$(eval base_type == '4WD')">
             <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_camera" 
                 args="0.115 0.0 0.25 0.0 0.0 0.0 $(arg base_frame) $(arg camera_frame) 20">
