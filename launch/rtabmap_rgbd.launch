@@ -4,7 +4,7 @@
   <arg name="database_path"     default="rtabmap.db"/>
 
   <arg     if="$(arg localization)" name="args"  default=""/>
-  <arg unless="$(arg localization)" name="args"  default="--delete_db_on_start"/>
+  <arg unless="$(arg localization)" name="args"  default="--delete_db_on_start"/> <!-- 未设置定位时，默认在启动时自动删除~/.ros/rtabmap.db地图文件 -->
   <arg name="planner"  default="dwa" doc="opt: dwa, teb"/> 
   <arg name="move_forward_only" default="true"/>
 
@@ -23,8 +23,8 @@
       <param name="frame_id" type="string" value="base_footprint"/>
       <param name="database_path"       type="string" value="$(arg database_path)"/>
       <param name="wait_for_transform_duration"  type="double"   value="$(arg wait_for_transform)"/>
-      <param name="subscribe_depth" type="bool" value="true"/>
-      <param name="subscribe_scan" type="bool" value="true"/>
+      <param name="subscribe_depth" type="bool" value="true"/>   <!-- 订阅深度图像数据 -->
+      <param name="subscribe_scan" type="bool" value="true"/>    <!-- 订阅激光雷达数据 -->
       <param name="map_always_update" type="bool" value="true"/>
       <!-- When sending goals on /rtabmap/goal topic, use actionlib to communicate with move_base --> 
       <param name="use_action_for_goal" type="bool" value="true"/>
@@ -35,7 +35,7 @@
       <remap from="rgb/image"       to="/camera/rgb/image_rect_color"/>
       <remap from="depth/image"     to="/camera/depth/image_raw"/>
       <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
-      <param name="queue_size" type="int" value="10"/>
+      <param name="queue_size" type="int" value="10"/>    <!-- 订阅队列，与各topic发布频率有关 -->
       <!-- output -->
       <remap from="grid_map" to="/map"/>
       <!-- RTAB-Map's parameters: do "rosrun rtabmap rtabmap (double-dash)params" to see the list of available parameters. -->
@@ -62,13 +62,13 @@
       <param name="Grid/NoiseFilteringRadius" type="string" value="0.05"/>
       <param name="Grid/NoiseFilteringRadius" type="string" value="2"/>
       <param name="Grid/FromDepth" type="string" value="false"/>
-      <!-- maximum features map size, default 2000 -->
+      <!-- 最大特征图大小 maximum features map size, default 2000 -->
       <param name="OdomF2M/MaxSize" type="string" value="1000"/> 
       <!-- Rate (Hz) at which new nodes are added to map -->
       <param name="Rtabmap/DetectionRate" type="string" value="1"/> 
-      <!-- maximum features extracted by image, default 1000 -->
+      <!-- 图像提取的最大特征 maximum features extracted by image, default 1000 -->
       <param name="Vis/MaxFeatures" type="string" value="400"/>
-      <!-- Correspondences: 0=Features Matching, 1=Optical Flow -->
+      <!-- 匹配对应设置为1光流 Correspondences: 0=Features Matching特征匹配, 1=Optical Flow光流 -->
       <param name="Vis/CorType" value="1"/>
       <!-- Minimum visual inliers to accept loop closure -->
       <param name="Vis/MinInliers" type="string" value="15"/> 
@@ -80,7 +80,7 @@
       <param name="Kp/MaxFeatures" type="string" value="400"/>  
       <!-- Used to extract more or less SURF features -->
       <param name="SURF/HessianThreshold" type="string" value="100"/>
-      <!-- 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
+      <!-- 视觉里程计策略设置为1逐帧 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
       <param name="Odom/Strategy" value="1"/>   
 
       <param name="Rtabmap/StartNewMapOnLoopClosure" value="true"/>
