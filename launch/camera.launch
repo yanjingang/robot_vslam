@@ -13,6 +13,7 @@
             <!-- 深度相机相比与底盘中心，靠前9cm，高28cm -->
             <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_camera"
                 args="0.09 0.0 0.28 0.0 0.0 0.0 $(arg base_frame) $(arg camera_frame) 20">
+                <!-- args="x y z yaw pitch roll frame_id child_frame_id period_in_ms"-->
             </node>
         </group>
         <group if="$(eval base_type == '4WD')">
