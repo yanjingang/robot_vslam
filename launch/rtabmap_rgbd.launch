@@ -5,7 +5,8 @@
 
   <arg     if="$(arg localization)" name="args"  default=""/>
   <arg unless="$(arg localization)" name="args"  default="--delete_db_on_start"/> <!-- 未设置定位时，默认在启动时自动删除~/.ros/rtabmap.db地图文件 -->
-  <arg name="planner"  default="dwa" doc="opt: dwa, teb"/> 
+
+  <arg name="planner"  default="" doc="opt: dwa, teb"/> 
   <arg name="move_forward_only" default="true"/>
 
   <!-- depth cloud to laser scan -->
@@ -85,6 +86,15 @@
 
       <param name="Rtabmap/StartNewMapOnLoopClosure" value="true"/>
     </node>
-
   </group>
+
+
+  <!-- move_base 导航 -->
+  <group unless="$(eval planner == '')">
+    <include file="$(find robot_vslam)/launch/move_base.launch" unless="$(eval planner == '')">
+        <arg name="planner"            value="$(arg planner)"/>
+        <arg name="move_forward_only"  value="$(arg move_forward_only)"/>
+    </include>
+  </group>
+
 </launch>

@@ -6,6 +6,9 @@
   <arg     if="$(arg localization)" name="args"  default=""/>
   <arg unless="$(arg localization)" name="args"  default="--delete_db_on_start"/>
 
+  <arg name="planner"  default="" doc="opt: dwa, teb"/> 
+  <arg name="move_forward_only" default="true"/>
+
   <group ns="rtabmap">
 
     <!-- Use RGBD synchronization -->
@@ -57,4 +60,14 @@
           <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>
     </node>
   </group>
+
+
+  <!-- move_base 导航 -->
+  <group unless="$(eval planner == '')">
+    <include file="$(find robot_vslam)/launch/move_base.launch" unless="$(eval planner == '')">
+        <arg name="planner"            value="$(arg planner)"/>
+        <arg name="move_forward_only"  value="$(arg move_forward_only)"/>
+    </include>
+  </group>
+
 </launch>
