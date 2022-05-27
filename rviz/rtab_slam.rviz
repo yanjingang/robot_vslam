@@ -250,7 +250,7 @@ Visualization Manager:
       Cloud min depth (m): 0
       Cloud voxel size (m): 0.0500000007
       Color: 255; 255; 255
-      Color Transformer: RGB8
+      Color Transformer: AxisColor
       Download graph: false
       Download map: false
       Enabled: true
