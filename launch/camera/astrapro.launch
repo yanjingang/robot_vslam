@@ -154,4 +154,10 @@
     <arg name="camera" value="$(arg camera)" />
   </include>
   
+
+  <!-- rviz -->
+  <arg name="open_rviz" default="false"/>
+  <group if="$(arg open_rviz)"> 
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_vslam)/rviz/astrapro.rviz"/>
+  </group>
 </launch>
